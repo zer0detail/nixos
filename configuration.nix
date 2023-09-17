@@ -22,7 +22,7 @@
     options = "--delete-older-than 1w";
   };
 
-  nix.settings.auto-optimize-store = true;
+  nix.settings.auto-optimise-store = true;
 
   networking.hostName = "zerix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
