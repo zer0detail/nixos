@@ -21,8 +21,7 @@
     };
     helix.url = "github:helix-editor/helix/23.05";
   };
-  outputs = { self, nixpkgs, home-manager, ...}@inputs: 
-    let
+  outputs = { self, nixpkgs, home-manager, ...}@inputs: let
       inherit (self) outputs;
       systems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
