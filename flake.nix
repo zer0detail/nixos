@@ -21,13 +21,26 @@
     };
     helix.url = "github:helix-editor/helix/23.05";
   };
-  outputs = { self, nixpkgs, home-manager, ...}@inputs: {
+  outputs = { self, nixpkgs, home-manager, ...}@inputs: 
+    let
+      inherit (self) outputs;
+      systems = [ "x86_64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+    in
+    {
+      packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
+
+      overlays = import ./overlays { inherit inputs; };
+      
     nixosConfigurations = {
       "zerix" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = inputs;
+        specialArgs = {inherit inputs outputs; };
         modules = [
-          ./configuration.nix
+          ./nixos/configuration.nix
 
           ## Make home-manager a module of nixos
           ## so that home-manager config will be auto deployed with
@@ -36,9 +49,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-
-            home-manager.users.zero = import ./home.nix;
-            # optionally, use home-manager.extraSpecialArgs to pass args to home.nix
+            home-manager.extraSpecialArgs = { inherit inputs outputs; };
+            home-manager.users.zero = import ./home-manager/home.nix;
           }
         ];
       };
