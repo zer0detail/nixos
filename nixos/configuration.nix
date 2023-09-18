@@ -121,7 +121,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    helix.packages."${pkgs.system}".helix 
+    helix 
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

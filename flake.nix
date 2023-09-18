@@ -39,7 +39,7 @@
       
     nixosConfigurations = {
       "zerix" = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs helix; };
+        specialArgs = {inherit inputs outputs; };
         modules = [
           ./nixos/configuration.nix
 
