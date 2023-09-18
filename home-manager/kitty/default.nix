@@ -5,6 +5,7 @@
     enable = true;
     settings = {
       font_family = "FiraCode";
+      shell = "zsh";
       font_size = "10.5";
       adjust_line_height = "0";
       adjust_column_width = "0";
@@ -37,6 +38,9 @@
       kitty_mod = "ctrl+shift";
       term = "xterm-kitty";
       clipboard_control = "write-clipboard write-primary";
+      background_opacity = "0.9";
+      dim_opacity = "0.6";
+      background = "#24283b";
     };
   };
 }

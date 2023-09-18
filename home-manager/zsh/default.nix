@@ -7,11 +7,11 @@
     enableAutosuggestions = true;
     # syntaxHighlighting.enable = true;
 
-    oh-my-zsh = {
-      enable = true;
       initExtra = ''
         [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
       '';
+    oh-my-zsh = {
+      enable = true;
       plugins = [
         "docker"
         "git"
@@ -59,8 +59,8 @@
         enable = true;
         plugins = [{
           name = "romkatv/powerlevel10k";
-          tag = [ "as:theme" "depth:1"];
+          tags = [ "as:theme" "depth:1"];
         }];
-      }
+      };
   };
 }
