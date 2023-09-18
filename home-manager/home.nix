@@ -11,6 +11,14 @@
     userEmail = "zerodetail@gmail.com";
   };
 
+ programs.neovim = {
+    enable = true;
+
+    viAlias = true;
+    vimAlias = true;:q
+    vimdiffAlias = true;
+ }; 
+
   # packages that should be installed to the user profile.
   home.packages = with pkgs; [
     neofetch  
