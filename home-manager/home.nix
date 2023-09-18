@@ -10,14 +10,14 @@
     userName = "zerodetail";
     userEmail = "zerodetail@gmail.com";
   };
+ import ./nvim
+ #programs.neovim = {
+  #  enable = true;
 
- programs.neovim = {
-    enable = true;
-
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
- }; 
+ #   viAlias = true;
+ #   vimAlias = true;
+ #   vimdiffAlias = true;
+ #}; 
 
   # packages that should be installed to the user profile.
   home.packages = with pkgs; [
