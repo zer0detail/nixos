@@ -8,6 +8,10 @@
   home.username = "zero";
   home.homeDirectory = "/home/zero";
 
+  home.file = {
+    ".p10k.zsh".source = ./zsh/.p10k.zsh; 
+  };
+
   fonts.fontconfig.enable = true;
   # Basic git config
   programs.git = {
@@ -27,6 +31,7 @@
   # packages that should be installed to the user profile.
   home.packages = with pkgs; [
     neofetch  
+    zoxide
     (nerdfonts.override { fonts = [ "FiraCode"]; })
   ];
 

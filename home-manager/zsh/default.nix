@@ -5,11 +5,13 @@
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    syntaxHighlighting.enable = true;
+    # syntaxHighlighting.enable = true;
 
-    ohMyZsh = {
+    oh-my-zsh = {
       enable = true;
-      theme = "powerlevel10k/powerlevel10k";
+      initExtra = ''
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+      '';
       plugins = [
         "docker"
         "git"
@@ -47,11 +49,18 @@
         "zsh-navigation-tools"
       ];
 
+    };
       shellAliases = {
         icat = "kitty +kitten icat";
         s = "kitty +kitten ssh";
         ll = "ls -lah";
       };
-    };
+      zplug = {
+        enable = true;
+        plugins = [{
+          name = "romkatv/powerlevel10k";
+          tag = [ "as:theme" "depth:1"];
+        }];
+      }
   };
 }
