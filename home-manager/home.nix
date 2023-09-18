@@ -10,7 +10,7 @@
     userName = "zerodetail";
     userEmail = "zerodetail@gmail.com";
   };
- nvim = import ./nvim
+ nvim = import ./nvim;
  #programs.neovim = {
   #  enable = true;
 
