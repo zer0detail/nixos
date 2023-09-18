@@ -3,6 +3,7 @@
 {
   imports = [
    ./kitty
+   ./zsh
   ];
   home.username = "zero";
   home.homeDirectory = "/home/zero";
