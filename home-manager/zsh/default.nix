@@ -5,7 +5,7 @@
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    syntaxHighlighting = { enable = true; };
+    enableSyntaxHighlighting = true;
 
     initExtra = ''
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
