@@ -32,6 +32,9 @@
   home.packages = with pkgs; [
     neofetch  
     zoxide
+    bat
+    lsd
+    ripgrep
     fzf
     (nerdfonts.override { fonts = [ "FiraCode"]; })
   ];
