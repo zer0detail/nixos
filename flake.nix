@@ -21,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix.url = "github:helix-editor/helix/23.05";
-    inputs.nixpkgs.follows = "nixpkgs";
+    helix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = { self, nixpkgs, home-manager, ...}@inputs: let
       inherit (self) outputs;
