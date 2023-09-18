@@ -15,7 +15,7 @@
     enable = true;
 
     viAlias = true;
-    vimAlias = true;:q
+    vimAlias = true;
     vimdiffAlias = true;
  }; 
 
