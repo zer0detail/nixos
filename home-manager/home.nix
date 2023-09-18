@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./nvim
+  ];
   home.username = "zero";
   home.homeDirectory = "/home/zero";
 
@@ -10,7 +13,6 @@
     userName = "zerodetail";
     userEmail = "zerodetail@gmail.com";
   };
- nvim = import ./nvim;
  #programs.neovim = {
   #  enable = true;
 
