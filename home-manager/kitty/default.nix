@@ -49,4 +49,5 @@
       "kitty_mod+enter" = "new_window_with_cwd";
       "kitty_mod+o" = "exec rofi -show run";
   };
+  };
 }
