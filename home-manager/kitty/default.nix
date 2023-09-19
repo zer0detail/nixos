@@ -37,10 +37,16 @@
       resize_draw_strategy = "static";
       kitty_mod = "ctrl+shift";
       term = "xterm-kitty";
-      clipboard_control = "write-clipboard write-primary";
+      clipboard_control = " write-clipboard write-primary";
       background_opacity = "0.9";
       dim_opacity = "0.6";
       background = "#24283b";
     };
+
+    keybindings = {
+      "kitty_mod+t" = "launch --cwd=current --type=tab";
+      "kitty_mod+n" = "launch --cwd=current";
+      "kitty_mod+enter" = "new_window_with_cwd";
+      "kitty_mod+o" = "exec rofi -show run";
   };
 }

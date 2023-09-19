@@ -9,6 +9,7 @@
 
     initExtra = ''
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+      eval $(thefuck --alias)
     '';
     oh-my-zsh = {
       enable = true;
@@ -53,7 +54,14 @@
       shellAliases = {
         icat = "kitty +kitten icat";
         s = "kitty +kitten ssh";
-        ll = "ls -lah";
+        cat = "bat --paging=never";
+        catl = "bat";
+        cd = "z";
+        l = "lsd";
+        ll = "lsd -l";
+        lll = "lsd -lah";
+        f = "fdfind";
+        du = "dust";
       };
       zplug = {
         enable = true;
