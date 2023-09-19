@@ -31,7 +31,6 @@
      vimdiffAlias = true;
   }; 
   xdg.configFile.nvim.source = ./nvim;
-  xdg.configFile."rofi/config.rasi".text = builtins.readFile ./rofi;
 
   # packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -44,6 +43,7 @@
     du-dust # better disk usage - https://github.com/bootandy/dust
     ripgrep # Better grep - https://github.com/BurntSushi/ripgrep
     fd # better find - https://github.com/sharkdp/fd
+    kitty
 
 
     ## Extra cli commands
@@ -62,7 +62,6 @@
     git-repo # android AOSP git mgmt tool
     firefox
     chromium 
-    rofi
 
     ## Languages
     python3
