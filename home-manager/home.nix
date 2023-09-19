@@ -2,9 +2,9 @@
 
 {
   imports = [
-   ./kitty
    ./zsh
    ./direnv
+   ./kitty
   ];
   home.username = "zero";
   home.homeDirectory = "/home/zero";
