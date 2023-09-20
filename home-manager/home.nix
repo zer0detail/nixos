@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -6,7 +6,6 @@
    ./direnv
    ./kitty
    # ./nvim
-   ./hyprland
   ];
   home.username = "zero";
   home.homeDirectory = "/home/zero";

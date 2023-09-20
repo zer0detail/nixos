@@ -114,13 +114,40 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  programs.hyprland = {
+    enable = true;
+    nvidiaPatches = true;
+    xwayland.enable = true; ## X apps support
+  };
+
+  environment.sessionVariables = {
+    ## Helps with invisible cursor issue
+    WLR_NO_HARDWARE_CURSORS = "1";
+    ## Tell electron apps to use wayland
+    NIXOS_OZONE_WL = "1";
+  };
+
+  hardware = {
+    opengl.enable = true;
+    nvidia.modesetting.enable = true;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     open-vm-tools
+    (waybar.overrideAttrs (oldAttrs: {
+      mesonFlags = oldAttrs.mersonFlags ++ [ "-Dexperimental=true" ];
+      })
+    )
+    dunst
+    libnotify
+    swww
   ];
+
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
