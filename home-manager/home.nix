@@ -5,6 +5,7 @@
    ./zsh
    ./direnv
    ./kitty
+   # ./nvim
   ];
   home.username = "zero";
   home.homeDirectory = "/home/zero";
@@ -62,6 +63,7 @@
     git-repo # android AOSP git mgmt tool
     firefox
     chromium 
+    exercism
 
     ## Languages
     python3

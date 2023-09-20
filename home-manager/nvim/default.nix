@@ -8,7 +8,7 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    xdg.configFile.nvim.source = ../nvim;
+    # xdg.configFile.nvim.source = ../nvim;
     #extraLuaConfig = ''
     #  ${builtins.readFile ./lua/zero/options.lua}
     #'';
