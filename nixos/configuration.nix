@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs,  ... }:
 
 {
   imports =
@@ -14,7 +14,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
-  boot.loader.grub.configurationLimit = 10;
+  boot.loader.grub.configurationLimit = 40;
 
   nix.gc = {
     automatic = true;
@@ -52,18 +52,40 @@
     LC_TIME = "en_AU.UTF-8";
   };
 
+
+    # Services
+  services = {
+    xserver = {
+      enable = true;
+      layout = "us";
+      xkbVariant = "";
+      excludePackages = [ pkgs.xterm ];
+      libinput.enable = true;
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
+      };
+    };
+    dbus.enable = true;
+    gvfs.enable = true;
+    tumbler.enable = true;
+    gnome = {
+      sushi.enable = true;
+      gnome-keyring.enable = true;
+    };
+  };
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
-    layout = "au";
-    xkbVariant = "";
-  };
+  # services.xserver = {
+  #   layout = "au";
+  #   xkbVariant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -114,10 +136,33 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  programs.hyprland = {
-    enable = true;
-    nvidiaPatches = true;
-    xwayland.enable = true; ## X apps support
+
+  # virtualisation.vmware.host = {
+  #   enable = true;
+  #   extraPackages = with pkgs; [ open-vm-tools ];
+  # };
+  programs = {
+    hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      xwayland = {
+        hidpi = true;
+        enable = true;
+      };
+    };
+    waybar = {
+      enable = true;
+      package = pkgs.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      });
+    };
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
   };
 
   environment.sessionVariables = {
@@ -125,32 +170,62 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     ## Tell electron apps to use wayland
     NIXOS_OZONE_WL = "1";
+    XDG_SESSION_TYPE = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    CLUTTER_BACKEND = "wayland";
+    WLR_RENDERER = "vulkan";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    GTK_USE_PORTAL = "1";
+    NIXOS_XDG_OPEN_USE_PORTAL = "1";
+    WLR_RENDERER_ALLOW_SOFTWARE = "1";
   };
 
   hardware = {
     opengl.enable = true;
-    nvidia.modesetting.enable = true;
   };
-
+  #
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     open-vm-tools
-    (waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      })
-    )
     dunst
     libnotify
     swww
     rofi-wayland
     gtk3
     xdg-desktop-portal-gtk
+    kitty
+    polkit_gnome
+    libva-utils
+    gnome.adwaita-icon-theme
+    gnome.gnome-themes-extra
+    gsettings-desktop-schemas
+    swaynotificationcenter
+    wlr-randr
+    hyprland-share-picker
+    wl-clipboard
+    hyprland-protocols
+    xdg-desktop-portal-hyprland
+    xdg-utils
+    xdg-desktop-portal
   ];
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # xdg.portal.enable = true;
+  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # XDG Portals
+  xdg = {
+    autostart.enable = true;
+    portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal
+        pkgs.xdg-desktop-portal-gtk
+      ];
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

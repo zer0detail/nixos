@@ -21,6 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay.url = "github:oxalica/rust-overlay";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
   outputs = { self, nixpkgs, home-manager, rust-overlay, ...}@inputs: let
       inherit (self) outputs;
