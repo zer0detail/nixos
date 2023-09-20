@@ -145,6 +145,8 @@
     libnotify
     swww
     rofi-wayland
+    gtk3
+    xdg-desktop-portal-gtk
   ];
 
   xdg.portal.enable = true;
