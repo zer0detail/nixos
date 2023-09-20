@@ -6,6 +6,7 @@
    ./direnv
    ./kitty
    # ./nvim
+   ./hyprland
   ];
   home.username = "zero";
   home.homeDirectory = "/home/zero";
@@ -44,7 +45,7 @@
     du-dust # better disk usage - https://github.com/bootandy/dust
     ripgrep # Better grep - https://github.com/BurntSushi/ripgrep
     fd # better find - https://github.com/sharkdp/fd
-    kitty
+    # kitty
 
 
     ## Extra cli commands
