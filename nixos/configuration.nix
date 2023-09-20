@@ -138,12 +138,13 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     open-vm-tools
     (waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mersonFlags ++ [ "-Dexperimental=true" ];
+      mersonFlags = oldAttrs.mersonFlags ++ [ "-Dexperimental=true" ];
       })
     )
     dunst
     libnotify
     swww
+    rofi-wayland
   ];
 
   xdg.portal.enable = true;
