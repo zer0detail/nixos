@@ -138,7 +138,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     open-vm-tools
     (waybar.overrideAttrs (oldAttrs: {
-      mersonFlags = oldAttrs.mersonFlags ++ [ "-Dexperimental=true" ];
+      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
       })
     )
     dunst
