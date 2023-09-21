@@ -42,6 +42,7 @@
         specialArgs = {inherit inputs outputs; };
         modules = [
           ./nixos/configuration.nix
+          ./nixos/greetd.nix
 
           ## Make home-manager a module of nixos
           ## so that home-manager config will be auto deployed with

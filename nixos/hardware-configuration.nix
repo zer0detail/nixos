@@ -12,12 +12,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos-gnome-23.05-x86_64";
+    { device = "/dev/disk/by-uuid/5193787b-75f2-41c2-9e0b-0d7ffad50814";
       fsType = "ext4";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
+    [ { device = "/dev/disk/by-uuid/756a9db8-862b-45ff-ada7-09c2e32e72e4"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

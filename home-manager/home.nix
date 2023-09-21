@@ -75,8 +75,34 @@
 
     ## Nerd Font
     (nerdfonts.override { fonts = [ "FiraCode"]; })
+
+    thunderbird
+    mako
+    wl-clipboard
+    shotman
   ];
 
   home.stateVersion = "23.05";
   programs.home-manager.enable = true;
+
+  wayland.windowManager.sway = {
+    enable = true;
+    config = rec {
+      modifier = "Mod4";
+      terminal = "kitty";
+      output = {
+        "Virtual-1" = {
+          mode = "2560x1440@60Hz";
+        };
+      };
+    };
+  extraConfig = ''
+    bindsym Print               exec shotman -c output
+    bindsym Print+Shift         exec shotman -c region
+    bindsym Print+Shift+Control exec shotman -c window
+
+    output "*" bg /etc/background.png fill
+    gaps inner 10
+  '';
+  };
 }

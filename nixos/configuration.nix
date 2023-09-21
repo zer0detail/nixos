@@ -24,6 +24,7 @@
 
   nix.settings.auto-optimise-store = true;
 
+  environment.etc."background.png".source = ../wallpaper/background.png;
   networking.hostName = "zerix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -52,40 +53,10 @@
     LC_TIME = "en_AU.UTF-8";
   };
 
+  # For sway
+  security.polkit.enable = true;
 
-    # Services
-  services = {
-    xserver = {
-      enable = true;
-      layout = "us";
-      xkbVariant = "";
-      excludePackages = [ pkgs.xterm ];
-      libinput.enable = true;
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
-    };
-    dbus.enable = true;
-    gvfs.enable = true;
-    tumbler.enable = true;
-    gnome = {
-      sushi.enable = true;
-      gnome-keyring.enable = true;
-    };
-  };
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver = {
-  #   layout = "au";
-  #   xkbVariant = "";
-  # };
+  
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -127,8 +98,8 @@
   nix.settings.trusted-users = [ "zero" ];
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "zero";
+  # services.xserver.displayManager.autoLogin.enable = true;
+  # services.xserver.displayManager.autoLogin.user = "zero";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -141,49 +112,10 @@
   #   enable = true;
   #   extraPackages = with pkgs; [ open-vm-tools ];
   # };
-  programs = {
-    hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-      xwayland = {
-        hidpi = true;
-        enable = true;
-      };
-    };
-    waybar = {
-      enable = true;
-      package = pkgs.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
-    };
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
-    };
-  };
-
-  environment.sessionVariables = {
-    ## Helps with invisible cursor issue
-    WLR_NO_HARDWARE_CURSORS = "1";
-    ## Tell electron apps to use wayland
-    NIXOS_OZONE_WL = "1";
-    XDG_SESSION_TYPE = "wayland";
-    SDL_VIDEODRIVER = "wayland";
-    _JAVA_AWT_WM_NONREPARENTING = "1";
-    CLUTTER_BACKEND = "wayland";
-    WLR_RENDERER = "vulkan";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    GTK_USE_PORTAL = "1";
-    NIXOS_XDG_OPEN_USE_PORTAL = "1";
-    WLR_RENDERER_ALLOW_SOFTWARE = "1";
-  };
 
   hardware = {
     opengl.enable = true;
+    # nvidia.modesetting.enable = true;
   };
   #
   # List packages installed in system profile. To search, run:
@@ -191,42 +123,13 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     open-vm-tools
-    dunst
-    libnotify
-    swww
-    rofi-wayland
-    gtk3
-    xdg-desktop-portal-gtk
-    kitty
-    polkit_gnome
-    libva-utils
-    gnome.adwaita-icon-theme
-    gnome.gnome-themes-extra
-    gsettings-desktop-schemas
-    swaynotificationcenter
-    wlr-randr
-    hyprland-share-picker
-    wl-clipboard
-    hyprland-protocols
-    xdg-desktop-portal-hyprland
-    xdg-utils
-    xdg-desktop-portal
   ];
 
-  # xdg.portal.enable = true;
-  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  # XDG Portals
-  xdg = {
-    autostart.enable = true;
-    portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal
-        pkgs.xdg-desktop-portal-gtk
-      ];
-    };
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
+  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
