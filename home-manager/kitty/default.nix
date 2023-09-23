@@ -23,7 +23,7 @@
       sync_to_monitor = "no";
       remember_window_size = "yes";
       initial_window_width = "1920";
-      initial_window_hiehgt = "1080";
+      initial_window_height = "1080";
       enabled_layouts = "tall:bias=70";
       window_border_width = "1.0";
       draw_minimal_borders = "yes";

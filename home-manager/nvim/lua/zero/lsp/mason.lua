@@ -6,6 +6,7 @@ local servers = {
 }
 
 local settings = {
+  PATH = "append",
   ui = {
     border = "none",
     icons = {

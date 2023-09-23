@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs,  ... }:
+{ config, pkgs, inputs, pkgs-unstable,  ... }:
 
 {
   imports =
@@ -129,7 +129,11 @@
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  
+  services.xserver.enable = true;
+  services.xserver.displayManager.gdm = {
+    enable = true;
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

@@ -21,7 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay.url = "github:oxalica/rust-overlay";
-    hyprland.url = "github:hyprwm/Hyprland";
   };
   outputs = { self, nixpkgs, home-manager, rust-overlay, ...}@inputs: let
       inherit (self) outputs;
@@ -38,11 +37,15 @@
       overlays = import ./overlays { inherit inputs; };
       
     nixosConfigurations = {
-      "zerix" = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs; };
+      "zerix" = nixpkgs.lib.nixosSystem rec {
+        specialArgs = {
+          inherit inputs outputs;
+          };
+        };
         modules = [
           ./nixos/configuration.nix
           ./nixos/greetd.nix
+
 
           ## Make home-manager a module of nixos
           ## so that home-manager config will be auto deployed with
@@ -52,8 +55,13 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs outputs; };
-            home-manager.users.zero = import ./home-manager/home.nix;
+            home-manager.users.zero = {
+              imports = [
+                ./home-manager/home.nix
+              ];
+            };
           }
+              
 
           ({ pkgs, ... }: {
              nixpkgs.overlays = [ rust-overlay.overlays.default ];
