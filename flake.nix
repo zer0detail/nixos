@@ -21,7 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay.url = "github:oxalica/rust-overlay";
-    hyprland.url = "github:hyprwm/Hyprland";
   };
   outputs = { self, nixpkgs, home-manager, rust-overlay, ...}@inputs: let
       inherit (self) outputs;
@@ -43,6 +42,7 @@
         modules = [
           ./nixos/configuration.nix
           ./nixos/greetd.nix
+          ./home-manager/waybar/default.nix
 
           ## Make home-manager a module of nixos
           ## so that home-manager config will be auto deployed with

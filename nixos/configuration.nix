@@ -92,6 +92,7 @@
     ];
     packages = with pkgs; [
       firefox
+      swayfx
     #  thunderbird
     ];
   };
@@ -101,17 +102,13 @@
   # services.xserver.displayManager.autoLogin.enable = true;
   # services.xserver.displayManager.autoLogin.user = "zero";
 
+  
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # virtualisation.vmware.host = {
-  #   enable = true;
-  #   extraPackages = with pkgs; [ open-vm-tools ];
-  # };
 
   hardware = {
     opengl.enable = true;
@@ -123,6 +120,13 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     open-vm-tools
+    # dbus-sway-environment
+    # configure-gtk
+    # wayland
+    # swaylock
+    # swayidle
+    # wl-clipboard
+    # mako
   ];
 
   environment.sessionVariables = {

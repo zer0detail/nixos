@@ -5,6 +5,8 @@
    ./zsh
    ./direnv
    ./kitty
+   ./rofi
+   # ./waybar
    # ./nvim
   ];
   home.username = "zero";
@@ -13,7 +15,6 @@
   home.file = {
     ".p10k.zsh".source = ./zsh/.p10k.zsh; 
   };
-
   fonts.fontconfig.enable = true;
   # Basic git config
   programs.git = {
@@ -79,7 +80,8 @@
     thunderbird
     mako
     wl-clipboard
-    shotman
+    rofi
+    nil
   ];
 
   home.stateVersion = "23.05";
@@ -87,22 +89,94 @@
 
   wayland.windowManager.sway = {
     enable = true;
-    config = rec {
-      modifier = "Mod4";
+    package = pkgs.swayfx;
+    wrapperFeatures.gtk = true;
+    wrapperFeatures.base = true;
+
+    config = {
+      window.titlebar = false;
       terminal = "kitty";
+      menu = "rofi";
+      bars = [{ command = "waybar"; }];
       output = {
+        "*".background = "/etc/background.png fill";
         "Virtual-1" = {
           mode = "2560x1440@60Hz";
         };
       };
+      gaps = {
+        outer = 0;
+        inner = 15;
+      };
+
+      modifier = "Mod4";
+      keybindings = let 
+        MOD = config.wayland.windowManager.sway.config.modifier;
+      in {
+        "${MOD}+b" = "exec firefox";
+        "${MOD}+Return" = "exec kitty";
+        "${MOD}+q" = "kill";
+        "${MOD}+d" = "exec ~/.config/rofi/launcher.sh";
+
+        ## Shift focus
+        "${MOD}+h" = "focus left";
+        "${MOD}+j" = "focus down";
+        "${MOD}+k" = "focus up";
+        "${MOD}+l" = "focus right";
+
+        ## Move Window
+        "${MOD}+Shift+h" = "move left";
+        "${MOD}+Shift+j" = "move down";
+        "${MOD}+Shift+k" = "move up";
+        "${MOD}+Shift+l" = "move right";
+
+        ## Workspaces
+        "${MOD}+1" = "workspace number 1";
+        "${MOD}+2" = "workspace number 2";
+        "${MOD}+3" = "workspace number 3";
+        "${MOD}+4" = "workspace number 4";
+        "${MOD}+5" = "workspace number 5";
+        "${MOD}+6" = "workspace number 6";
+        "${MOD}+7" = "workspace number 7";
+        "${MOD}+8" = "workspace number 8";
+        "${MOD}+9" = "workspace number 9";
+        "${MOD}+0" = "workspace number 0";
+
+        "${MOD}+Shift+1" = "move container to workspace number 1";
+        "${MOD}+Shift+2" = "move container to workspace number 2";
+        "${MOD}+Shift+3" = "move container to workspace number 3";
+        "${MOD}+Shift+4" = "move container to workspace number 4";
+        "${MOD}+Shift+5" = "move container to workspace number 5";
+        "${MOD}+Shift+6" = "move container to workspace number 6";
+        "${MOD}+Shift+7" = "move container to workspace number 7";
+        "${MOD}+Shift+8" = "move container to workspace number 8";
+        "${MOD}+Shift+9" = "move container to workspace number 9";
+        "${MOD}+Shift+0" = "move container to workspace number 0";
+
+        ## Toggle Splitting
+        "${MOD}+n" = "split horizontal";
+        "${MOD}+v" = "split vertical";
+
+        ## Fullscreen & Floating
+        "${MOD}+F" = "fullscreen toggle";
+        "${MOD}+Shift+F" = "floating toggle";
+        "${MOD}+Space" = "focus mode_toggle";
+
+        ## Resize
+        "${MOD}+R" = "mode resize";
+
+        ## Reload & Exit
+        "${MOD}+Shift+R" = "reload";
+        "${MOD}+Ctrl+Shift+E" = "exit";
+      };
     };
   extraConfig = ''
-    bindsym Print               exec shotman -c output
-    bindsym Print+Shift         exec shotman -c region
-    bindsym Print+Shift+Control exec shotman -c window
 
-    output "*" bg /etc/background.png fill
-    gaps inner 10
+    default_dim_inactive 0.1
+    corner_radius 5
+    shadows enable
+    blur_radius 7
+    blur_passes 4
   '';
   };
 }

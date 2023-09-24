@@ -1,5 +1,6 @@
 local servers = {
   "lua_ls",
+  "nil_ls",
   "pyright",
   "jsonls",
   "rust_analyzer",
